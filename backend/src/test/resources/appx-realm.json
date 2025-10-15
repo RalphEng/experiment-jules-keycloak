@@ -1,0 +1,88 @@
+{
+  "realm": "appx-realm",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "appx-frontend",
+      "protocol": "openid-connect",
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "http://localhost:3000/*"
+      ],
+      "webOrigins": [
+        "http://localhost:3000"
+      ],
+      "attributes": {
+        "pkce.code.challenge.method": "S256"
+      }
+    },
+    {
+      "clientId": "appx-backend",
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "serviceAccountsEnabled": true,
+      "secret": "your-backend-client-secret",
+      "authorizationServicesEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "attributes": {}
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "APPX-Admin",
+        "description": "Administrator role for APPX"
+      },
+      {
+        "name": "APPX-Nutzer",
+        "description": "User role for APPX"
+      }
+    ]
+  },
+  "users": [
+    {
+      "username": "adminuser",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "APPX-Admin"
+      ]
+    },
+    {
+      "username": "normaluser",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "user",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "APPX-Nutzer"
+      ]
+    },
+    {
+      "username": "service-account-appx-backend",
+      "enabled": true,
+      "serviceAccountClientId": "appx-backend",
+      "clientRoles": {
+        "realm-management": [
+          "query-users",
+          "view-users",
+          "view-clients"
+        ]
+      }
+    }
+  ]
+}
