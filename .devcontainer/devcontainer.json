@@ -1,0 +1,139 @@
+{
+    "name": "Java 21 Maven Dev Container",
+    "image": "mcr.microsoft.com/devcontainers/java:21-jdk-bookworm",
+    "features": {
+        "ghcr.io/devcontainers/features/java:1": {
+            "version": "21",
+            "jdkDistro": "tem",
+            "installMaven": "true",
+            "mavenVersion": "3.9.5"
+        },
+        "ghcr.io/devcontainers/features/git:1": {},
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": "true",
+            "installOhMyZsh": "true",
+            "upgradePackages": "true"
+        },
+        "ghcr.io/devcontainers/features/docker-from-docker:1": {
+            "version": "latest",
+            "enableNonRootDocker": "true"
+        },
+        "ghcr.io/devcontainers/features/sshd:1": {},
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "latest"
+        }
+    },
+    "postCreateCommand": [
+        "bash",
+        "-c",
+        "echo 'Verifying Java and Maven installation...' && java -version && mvn -version && echo 'Java + Maven setup complete!' && npm install -g @anthropic-ai/claude-code"
+    ],
+    "postStartCommand": [
+        "bash",
+        "-c",
+        "git config --global --add safe.directory ${containerWorkspaceFolder}"
+    ],
+    "mounts": [
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.m2,target=/home/vscode/.m2,type=bind,consistency=cached",
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,readonly,type=bind",
+        "source=${localEnv:HOME}${localEnv:USERPROFILE}/.claude,target=/home/vscode/.claude,type=bind"
+
+    ],
+    "remoteUser": "vscode",
+    "containerUser": "vscode",
+    "forwardPorts": [
+        8080,
+        8443,
+        9090
+    ],
+    "portsAttributes": {
+        "8080": {
+            "label": "Application",
+            "onAutoForward": "notify"
+        },
+        "8443": {
+            "label": "Application (HTTPS)",
+            "onAutoForward": "notify"
+        },
+        "9090": {
+            "label": "Management/Actuator",
+            "onAutoForward": "silent"
+        }
+    },
+    "remoteEnv": {
+        "SSH_AUTH_SOCK": "/ssh-agent"
+    },
+    "containerEnv": {
+        "JAVA_HOME": "/usr/local/sdkman/candidates/java/current",
+        "JAVA_21_HOME": "/usr/local/sdkman/candidates/java/21.0.8-tem"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "redhat.java",
+                "vscjava.vscode-java-pack",
+                "redhat.vscode-xml",
+                "vmware.vscode-boot-dev-pack",
+                "gabrielbb.vscode-lombok",
+                "ms-playwright.playwright",
+                "ritwickdey.liveserver",
+                "eamodio.gitlens",
+                "mhutchie.git-graph",
+                "donjayamanne.githistory",
+                "yzhang.markdown-all-in-one",
+                "bierner.markdown-mermaid",
+                "bierner.markdown-preview-github-styles",
+                "davidanson.vscode-markdownlint",
+                "bierner.markdown-emoji",
+                "bierner.markdown-checkbox",
+                "myml.vscode-markdown-plantuml-preview",
+                "Anthropic.claude-code",
+                "cline.cline",
+                "GitHub.copilot-chat",
+                "GitHub.copilot"
+            ],
+            "settings": {
+                // Java Settings
+                "java.configuration.runtimes": [
+                    {
+                        "name": "JavaSE-21",
+                        "path": "/usr/local/sdkman/candidates/java/21.0.8-tem",
+                        "default": true
+                    }
+                ],
+                "java.compile.nullAnalysis.mode": "automatic",
+                "java.inlayHints.parameterNames.enabled": "all",
+                "java.codeGeneration.insertionLocation": "afterCursor",
+                "java.codeGeneration.generateComments": false,
+
+
+                "maven.view": "hierarchical",
+                "maven.pomfile.autoUpdateEffectivePOM": true,
+                "maven.terminal.useJavaHome": true,
+
+                "java.format.settings.url": "file://${containerWorkspaceFolder}/styles/java/EclipseQueoFormatSettings_Eclipse4.11.xml",
+                // Editor Settings
+                "files.eol": "\n",
+                "editor.tabSize": 4,
+                "editor.insertSpaces": true,
+                "editor.detectIndentation": false,
+                "files.trimTrailingWhitespace": true,
+                "files.insertFinalNewline": true,
+                "java.format.comments.enabled": false,
+                "java.completion.favoriteStaticMembers": [
+                    "org.assertj.core.api.Assertions.*",
+                    "org.junit.Assert.*",
+                    "org.junit.Assume.*",
+                    "org.junit.jupiter.api.Assertions.*",
+                    "org.junit.jupiter.api.Assumptions.*",
+                    "org.junit.jupiter.api.DynamicContainer.*",
+                    "org.junit.jupiter.api.DynamicTest.*",
+                    "org.mockito.Mockito.*",
+                    "org.mockito.ArgumentMatchers.*",
+                    "org.mockito.Answers.*",
+                    "org.springframework.test.web.servlet.result.MockMvcResultMatchers.*"
+                ]
+            }
+        }
+    }
+}
