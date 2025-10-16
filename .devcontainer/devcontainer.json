@@ -4,9 +4,12 @@
     "features": {
         "ghcr.io/devcontainers/features/java:1": {
             "version": "21",
-            "jdkDistro": "tem",
+			"additionalVersions": [
+				"17.0.16"
+			],
+            "jdkDistro": "tem",			
             "installMaven": "true",
-            "mavenVersion": "3.9.5"
+            "mavenVersion": "3.9.11"
         },
         "ghcr.io/devcontainers/features/git:1": {},
         "ghcr.io/devcontainers/features/common-utils:2": {
@@ -65,15 +68,16 @@
     },
     "containerEnv": {
         "JAVA_HOME": "/usr/local/sdkman/candidates/java/current",
-        "JAVA_21_HOME": "/usr/local/sdkman/candidates/java/21.0.8-tem"
+        "JAVA_21_HOME": "/usr/local/sdkman/candidates/java/21.0.8-tem",
+		"JAVA_17_HOME": "/usr/local/sdkman/candidates/java/17.0.16-tem"
     },
     "customizations": {
         "vscode": {
-            "extensions": [
-                "redhat.java",
+            "extensions": [                
                 "vscjava.vscode-java-pack",
                 "redhat.vscode-xml",
-                "vmware.vscode-boot-dev-pack",
+				"redhat.java",
+				"vmware.vscode-boot-dev-pack",
                 "gabrielbb.vscode-lombok",
                 "ms-playwright.playwright",
                 "ritwickdey.liveserver",
@@ -99,7 +103,12 @@
                         "name": "JavaSE-21",
                         "path": "/usr/local/sdkman/candidates/java/21.0.8-tem",
                         "default": true
-                    }
+                    },
+					{
+		                        "name": "JavaSE-17",
+		                        "path": "/usr/local/sdkman/candidates/java/17.0.16-tem",
+		                        "default": true
+                            }
                 ],
                 "java.compile.nullAnalysis.mode": "automatic",
                 "java.inlayHints.parameterNames.enabled": "all",
