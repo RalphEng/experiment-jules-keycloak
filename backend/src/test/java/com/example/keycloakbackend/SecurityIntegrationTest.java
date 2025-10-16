@@ -35,6 +35,7 @@ public class SecurityIntegrationTest {
     @DynamicPropertySource
     static void registerResourceServerIssuerProperty(DynamicPropertyRegistry registry) {
         registry.add("spring.security.oauth2.resourceserver.jwt.issuer-uri", () -> keycloak.getAuthServerUrl() + "/realms/appx-realm");
+        registry.add("spring.security.oauth2.resourceserver.jwt.jwk-set-uri", () -> keycloak.getAuthServerUrl() + "/realms/appx-realm/protocol/openid-connect/certs");
         registry.add("keycloak.auth-server-url", keycloak::getAuthServerUrl);
         registry.add("keycloak.realm", () -> "appx-realm");
         registry.add("keycloak.resource", () -> "appx-backend");
