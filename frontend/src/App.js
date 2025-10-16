@@ -138,7 +138,7 @@ function AdminPage() {
 
 function Callback() {
     const auth = useAuth();
-    auth.signinCallback();
+    auth.signinRedirectCallback();
     return <div>Loading...</div>;
 }
 
