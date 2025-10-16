@@ -1,11 +1,18 @@
 {
   "permissions": {
-    "allow": [],
+    "allow": [
+      "Bash(gh pr list:*)",
+      "Bash(docker run:*)",
+      "Bash(docker logs:*)",
+      "Bash(curl:*)",
+      "Bash(docker-compose up:*)",
+      "Bash(ip addr:*)"
+    ],
     "deny": [],
     "ask": []
   },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "context7"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }
