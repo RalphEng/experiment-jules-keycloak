@@ -1,0 +1,14 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI}
+keycloak:
+  realm: appx-realm
+  auth-server-url: ${KEYCLOAK_AUTH_SERVER_URL}
+  resource: appx-backend
+  credentials:
+    secret: ${KEYCLOAK_CLIENT_SECRET}
+server:
+  port: 8081
